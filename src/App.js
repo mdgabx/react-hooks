@@ -1,11 +1,12 @@
 import React from 'react';
 import './App.css';
+import CounterMemo from './CounterMemo';
 // import ComponentA from './components/ComponentA';
 // import ComponentB from './components/ComponentB';
 // import ComponentC from './components/ComponentC';
 // import DataFetchingOne from './components/DataFetchingOne';
 // import DataFetchingTwo from './components/DataFetchingTwo';
-import ParentComponent from './components/ParentComponents';
+// import ParentComponent from './components/ParentComponents';
 
 // import CounterTwo from './components/CounterTwo';
 // import CounterThree from './components/CounterThree';
@@ -52,7 +53,8 @@ function App() {
     <div className="App">
       {/* <DataFetchingOne /> */}
       {/* <DataFetchingTwo /> */}
-      <ParentComponent />
+      {/* <ParentComponent /> */}
+      <CounterMemo />
     </div>
 
 

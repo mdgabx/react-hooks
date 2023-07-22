@@ -34,11 +34,11 @@ const ParentComponent = () => {
 
     const handleAge = useCallback(() => {
         dispatch({ type: 'INCREMENT_AGE', payload: { value: 1 } })
-    })
+    }, [state.age])
 
     const handleSalary = useCallback(() => {
         dispatch({ type: 'INCREMENT_SALARY', payload: { value: 1000 } })
-    })
+    }, [state.salary])
 
     return (
         <>
