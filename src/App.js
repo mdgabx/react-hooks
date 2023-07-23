@@ -1,6 +1,8 @@
 import React from 'react';
 import './App.css';
-import CounterMemo from './CounterMemo';
+// import CounterMemo from './CounterMemo';
+import FocusInput from './components/FocusInput';
+// import HookTimer from './components/HookTimer';
 // import ComponentA from './components/ComponentA';
 // import ComponentB from './components/ComponentB';
 // import ComponentC from './components/ComponentC';
@@ -54,7 +56,9 @@ function App() {
       {/* <DataFetchingOne /> */}
       {/* <DataFetchingTwo /> */}
       {/* <ParentComponent /> */}
-      <CounterMemo />
+      {/* <CounterMemo /> */}
+      <FocusInput />
+      {/* <HookTimer /> */}
     </div>
 
 
