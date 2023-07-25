@@ -1,7 +1,11 @@
 import React from 'react';
 import './App.css';
+import { YoutubeForm } from './components/ReactHookForm/YoutubeForm';
+// import YupValidation from './components/FormValidation/YupValidation';
+
+// import Scroll from './components/ReactLoaderSpinner';
 // import CounterMemo from './CounterMemo';
-import FocusInput from './components/FocusInput';
+// import FocusInput from './components/FocusInput';
 // import HookTimer from './components/HookTimer';
 // import ComponentA from './components/ComponentA';
 // import ComponentB from './components/ComponentB';
@@ -57,8 +61,11 @@ function App() {
       {/* <DataFetchingTwo /> */}
       {/* <ParentComponent /> */}
       {/* <CounterMemo /> */}
-      <FocusInput />
+      {/* <FocusInput /> */}
       {/* <HookTimer /> */}
+      {/* <Scroll /> */}
+      {/* <YupValidation /> */}
+      <YoutubeForm />
     </div>
 
 
