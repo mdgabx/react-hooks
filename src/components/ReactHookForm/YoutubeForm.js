@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { useForm, useFieldArray, useWatch } from 'react-hook-form'
+import { useForm, useFieldArray, FieldErrors } from 'react-hook-form'
 import { DevTool } from "@hookform/devtools"
 // import axios from 'axios'
 
@@ -19,7 +19,11 @@ export const YoutubeForm = () => {
             }],
             age: 0,
             dob: new Date()
-        }
+        },
+        mode: "all" // onBlur and onChange
+        // mode: "onChange"
+        // mode: "onTouched",
+        // mode: "onBlur",
     })
 
  
@@ -46,8 +50,35 @@ export const YoutubeForm = () => {
 //     }
 // });
 
-    const { register, control, handleSubmit, formState, getValues, watch } = form
-    const { errors } = formState
+    const { 
+        register, 
+        control, 
+        handleSubmit, 
+        formState, 
+        getValues, 
+        watch, 
+        setValue,
+        reset,
+        trigger
+    } = form
+
+    const { 
+        errors, 
+        touchedFields, 
+        dirtyFields, 
+        isDirty, 
+        isValid, 
+        isSubmitting, 
+        isSubmitted, 
+        isSubmitSuccessful, 
+        submitCount,
+    } = formState
+
+    console.log(touchedFields, dirtyFields, isDirty)
+    console.log('isSubmitting', isSubmitting)
+    console.log('isSubmitted', isSubmitted)
+    console.log('submitSuccessgul', isSubmitSuccessful)
+    console.log('submitCount', submitCount)
 
     const {fields, append, remove } =  useFieldArray({
         name: 'phNumbers',
@@ -67,7 +98,7 @@ export const YoutubeForm = () => {
 
     // const  watchUsername = watch("username")
     // const watchVar = watch(["username", "email"])
-     const watchForm = watch("username")
+     const watchForm = watch();
 
     // useEffect(() => {
     //     // const subscription =  useWatch((value) => {
@@ -79,15 +110,33 @@ export const YoutubeForm = () => {
     //     // }
     // }, [])
 
+    useEffect(() => {
+        if(isSubmitSuccessful) {
+            reset()
+        }
+    }, [isSubmitSuccessful])
 
     const handleGetValues = () => {
         console.log('Get values', getValues("social"))
     }
 
+    const handleSetValues = () => {
+        setValue("username", "", {
+            shouldDirty: true,
+            shouldValidate: true,
+            shouldTouch: true
+        })
+    }
+
+    const onError = (errors) => {
+        console.log("Form errors", errors)
+    }
+
   return (
     <div>
-        <h1>Watched valueL {watchForm} </h1>
-        <form onSubmit={handleSubmit(onSubmit)} noValidate>
+        <p>Watched value: {JSON.stringify(watchForm)} </p>
+
+        <form onSubmit={handleSubmit(onSubmit, onError)} noValidate>
             <div className='form-control'>
                 <label htmlFor='username'>Username</label>
                 <input type="text" id="username" 
@@ -115,6 +164,12 @@ export const YoutubeForm = () => {
                         },
                         notBlackListed: (fieldValue) => {
                             return (!fieldValue.endsWith("baddomain.com") || "email address not supported");
+                        },
+                        emailAvailable: async (fieldValue) => {
+                            const response = await fetch(`https://jsonplaceholder.typicode.com/users?email=${fieldValue}`)
+                            const data = response.json()
+
+                            return data.length == 0 || "Email already exist"
                         }
                     },
 
@@ -139,9 +194,10 @@ export const YoutubeForm = () => {
             <label htmlFor='twitter'>Twitter</label>
                 <input type="text" id="twitter"  
                 {...register("social.twitter", {
+                    disabled: watch("channel") === "",
                     required: {
                         value: true,
-                        message: "No twitter found"
+                        message: "Enter twitter profile"
                     }
                 })} />
                 <p>{errors.social?.twitter?.message}</p>
@@ -240,8 +296,11 @@ export const YoutubeForm = () => {
             </div>
            
 
-            <button type="submit">Submit</button>
+            <button disabled={!isDirty || !isValid || isSubmitting} type="submit">Submit</button>
             <button type="button" onClick={handleGetValues}>Get Values</button>
+            <button type="button" onClick={handleSetValues}>Set Values</button>
+            <button type="button" onClick={() => reset()}>Reset</button>
+            <button type="button" onClick={() => trigger()}>Validate</button>
 
             <DevTool control={control}  />
         </form>

@@ -1,6 +1,7 @@
 import React from 'react';
 import './App.css';
-import { YoutubeForm } from './components/ReactHookForm/YoutubeForm';
+import YupForm from './components/ReactHookForm/YupForm';
+// import { YoutubeForm } from './components/ReactHookForm/YoutubeForm';
 // import YupValidation from './components/FormValidation/YupValidation';
 
 // import Scroll from './components/ReactLoaderSpinner';
@@ -65,7 +66,8 @@ function App() {
       {/* <HookTimer /> */}
       {/* <Scroll /> */}
       {/* <YupValidation /> */}
-      <YoutubeForm />
+      {/* <YoutubeForm /> */}
+      <YupForm />
     </div>
 
 
